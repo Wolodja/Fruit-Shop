@@ -4,10 +4,13 @@ import com.github.fruitshop.domain.dto.CategoryDto;
 import com.github.fruitshop.domain.mapper.CategoryMapper;
 import com.github.fruitshop.repository.CategoryRepository;
 import com.github.fruitshop.service.CategoryService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+@Service
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryMapper categoryMapper;
