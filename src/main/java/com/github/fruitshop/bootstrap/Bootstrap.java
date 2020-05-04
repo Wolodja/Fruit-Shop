@@ -19,7 +19,7 @@ public class Bootstrap implements CommandLineRunner {
 
         Category fruits = Category.builder().name("Fruits").build();
         Category dried = Category.builder().name("Dried").build();
-        Category fresh = Category.builder().name("Freh").build();
+        Category fresh = Category.builder().name("Fresh").build();
         Category exotic = Category.builder().name("Exotic").build();
         Category nuts = Category.builder().name("Nuts").build();
 
