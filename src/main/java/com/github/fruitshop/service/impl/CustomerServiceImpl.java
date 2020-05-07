@@ -37,4 +37,9 @@ public class CustomerServiceImpl implements CustomerService {
                 .map(customerMapper::customerToCustomerDto)
                 .orElse(null);
     }
+
+    @Override
+    public CustomerDto createNewCustomer(CustomerDto customerDto) {
+        return customerMapper.customerToCustomerDto(customerRepository.save(customerMapper.customerDtoToCustomer(customerDto)));
+    }
 }
