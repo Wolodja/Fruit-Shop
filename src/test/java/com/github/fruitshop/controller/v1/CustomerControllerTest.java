@@ -39,7 +39,7 @@ class CustomerControllerTest {
 
 
     @Test
-    private void testGetAllCustomers(){
+    private void testGetAllCustomers() throws Exception {
         CustomerDto john = CustomerDto.builder().firstName("John").lastName("Smith").build();
         CustomerDto longi = CustomerDto.builder().firstName("Longi").lastName("Ardo").build();
 
@@ -50,8 +50,5 @@ class CustomerControllerTest {
         mockMvc.perform(get("/api/v1/categories/").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.customers", hasSize(2)));
-
-
     }
-
 }
