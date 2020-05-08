@@ -1,5 +1,6 @@
 package com.github.fruitshop.service.impl;
 
+import com.github.fruitshop.controller.v1.CustomerController;
 import com.github.fruitshop.domain.dto.CustomerDto;
 import com.github.fruitshop.domain.entity.Customer;
 import com.github.fruitshop.domain.mapper.CustomerMapper;
@@ -84,7 +85,7 @@ public class CustomerServiceImplTest {
 
         //then
         assertEquals(customerDTO.getFirstName(), savedDto.getFirstName());
-        assertEquals("/api/v1/customers/1", savedDto.getCustomerUrl());
+        assertEquals(CustomerController.BASE_URL + "/1", savedDto.getCustomerUrl());
     }
 
     @Test
@@ -106,7 +107,7 @@ public class CustomerServiceImplTest {
 
         //then
         assertEquals(customerDTO.getFirstName(), savedDto.getFirstName());
-        assertEquals("/api/v1/customers/1", savedDto.getCustomerUrl());
+        assertEquals(CustomerController.BASE_URL + "/1", savedDto.getCustomerUrl());
     }
     
     @Test
