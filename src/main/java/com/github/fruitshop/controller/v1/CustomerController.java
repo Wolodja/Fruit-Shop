@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -23,20 +24,26 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ResponseEntity<CustomerListDto> getAllCustomers(){
+    public ResponseEntity<CustomerListDto> getAllCustomers() {
         return new ResponseEntity<>(
                 new CustomerListDto(customerService.getAllCustomers()), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CustomerDto> findById(@PathVariable String id){
+    public ResponseEntity<CustomerDto> findById(@PathVariable Long id) {
         return new ResponseEntity<>(
-                customerService.findCustomerById(Long.valueOf(id)), HttpStatus.OK);
+                customerService.findCustomerById(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<CustomerDto> createNewCustomer(@RequestBody CustomerDto customerDto){
+    public ResponseEntity<CustomerDto> createNewCustomer(@RequestBody CustomerDto customerDto) {
         return new ResponseEntity<>(
                 customerService.createNewCustomer(customerDto), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CustomerDto> updateCustomer(@PathVariable Long id, @RequestBody CustomerDto customerDto) {
+        return new ResponseEntity<>(
+                customerService.updateCustomer(id, customerDto), HttpStatus.OK);
     }
 }

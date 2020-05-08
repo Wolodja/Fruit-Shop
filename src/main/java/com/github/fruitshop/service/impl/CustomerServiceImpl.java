@@ -1,6 +1,7 @@
 package com.github.fruitshop.service.impl;
 
 import com.github.fruitshop.domain.dto.CustomerDto;
+import com.github.fruitshop.domain.entity.Customer;
 import com.github.fruitshop.domain.mapper.CustomerMapper;
 import com.github.fruitshop.repository.CustomerRepository;
 import com.github.fruitshop.service.CustomerService;
@@ -41,5 +42,13 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDto createNewCustomer(CustomerDto customerDto) {
         return customerMapper.customerToCustomerDto(customerRepository.save(customerMapper.customerDtoToCustomer(customerDto)));
+    }
+
+    @Override
+    public CustomerDto updateCustomer(Long id, CustomerDto customerDto) {
+        Customer customer = customerMapper.customerDtoToCustomer(customerDto);
+        customer.setId(id);
+
+        return customerMapper.customerToCustomerDto(customerRepository.save(customer));
     }
 }
