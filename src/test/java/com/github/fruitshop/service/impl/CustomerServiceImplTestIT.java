@@ -6,6 +6,7 @@ import com.github.fruitshop.domain.entity.Customer;
 import com.github.fruitshop.domain.mapper.CustomerMapper;
 import com.github.fruitshop.repository.CategoryRepository;
 import com.github.fruitshop.repository.CustomerRepository;
+import com.github.fruitshop.repository.VendorRepository;
 import com.github.fruitshop.service.CustomerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,6 +30,9 @@ public class CustomerServiceImplTestIT {
     @Autowired
     CategoryRepository categoryRepository;
 
+    @Autowired
+    VendorRepository vendorRepository;
+
     CustomerService customerService;
 
     @BeforeEach
@@ -37,7 +41,7 @@ public class CustomerServiceImplTestIT {
         System.out.println(customerRepository.findAll().size());
 
         //setup data for testing
-        Bootstrap bootstrap = new Bootstrap(categoryRepository, customerRepository);
+        Bootstrap bootstrap = new Bootstrap(categoryRepository, customerRepository, vendorRepository);
         bootstrap.run(); //load data
 
         customerService = new CustomerServiceImpl(customerRepository, CustomerMapper.INSTANCE);

@@ -2,8 +2,10 @@ package com.github.fruitshop.bootstrap;
 
 import com.github.fruitshop.domain.entity.Category;
 import com.github.fruitshop.domain.entity.Customer;
+import com.github.fruitshop.domain.entity.Vendor;
 import com.github.fruitshop.repository.CategoryRepository;
 import com.github.fruitshop.repository.CustomerRepository;
+import com.github.fruitshop.repository.VendorRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -14,9 +16,12 @@ public class Bootstrap implements CommandLineRunner {
 
     private CustomerRepository customerRepository;
 
-    public Bootstrap(CategoryRepository categoryRepository, CustomerRepository customerRepository) {
+    private final VendorRepository vendorRepository;
+
+    public Bootstrap(CategoryRepository categoryRepository, CustomerRepository customerRepository, VendorRepository vendorRepository) {
         this.categoryRepository = categoryRepository;
         this.customerRepository = customerRepository;
+        this.vendorRepository = vendorRepository;
     }
 
     @Override
@@ -24,6 +29,7 @@ public class Bootstrap implements CommandLineRunner {
 
         loadCustomers();
         loadCategories();
+        loadVendors();
     }
 
     private void loadCustomers() {
@@ -56,6 +62,16 @@ public class Bootstrap implements CommandLineRunner {
         categoryRepository.save(exotic);
         categoryRepository.save(nuts);
 
-        System.out.println("Data Loaded int category table: "+ categoryRepository.count());
+        System.out.println("Data Loaded in category table: "+ categoryRepository.count());
+    }
+
+    private void loadVendors() {
+        Vendor vendor1 = Vendor.builder().name("Vendor 1").build();
+        vendorRepository.save(vendor1);
+
+        Vendor vendor2 = Vendor.builder().name("Vendor 2").build();
+        vendorRepository.save(vendor2);
+
+        System.out.println("Data Loaded in vendor table: " + vendorRepository.count());
     }
 }
