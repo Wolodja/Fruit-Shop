@@ -2,6 +2,7 @@ package com.github.fruitshop.service.impl;
 
 import com.github.fruitshop.domain.dto.CustomerDto;
 import com.github.fruitshop.domain.entity.Customer;
+import com.github.fruitshop.domain.exception.ResourceNotFoundException;
 import com.github.fruitshop.domain.mapper.CustomerMapper;
 import com.github.fruitshop.repository.CustomerRepository;
 import com.github.fruitshop.service.CustomerService;
@@ -36,7 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository
                 .findById(customerId)
                 .map(customerMapper::customerToCustomerDto)
-                .orElse(null);
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
@@ -65,7 +66,7 @@ public class CustomerServiceImpl implements CustomerService {
             }
 
             return customerMapper.customerToCustomerDto(customerRepository.save(customer));
-        }).orElseThrow(RuntimeException::new); //todo implement better exception handling;
+        }).orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
