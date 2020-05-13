@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(description = "This is my Customer Controller")
+@Api(description = "Customer API")
 @RestController
 @RequestMapping(CustomerController.BASE_URL)
 public class CustomerController {
