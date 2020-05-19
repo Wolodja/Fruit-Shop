@@ -1,8 +1,8 @@
 package com.github.fruitshop.domain.mapper;
 
 import com.github.fruitshop.controller.v1.CustomerController;
-import com.github.fruitshop.domain.dto.CustomerDto;
 import com.github.fruitshop.domain.entity.Customer;
+import com.github.fruitshop.model.CustomerDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

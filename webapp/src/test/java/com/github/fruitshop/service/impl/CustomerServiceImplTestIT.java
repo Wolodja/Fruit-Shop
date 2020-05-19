@@ -1,9 +1,9 @@
 package com.github.fruitshop.service.impl;
 
 import com.github.fruitshop.bootstrap.Bootstrap;
-import com.github.fruitshop.domain.dto.CustomerDto;
 import com.github.fruitshop.domain.entity.Customer;
 import com.github.fruitshop.domain.mapper.CustomerMapper;
+import com.github.fruitshop.model.CustomerDto;
 import com.github.fruitshop.repository.CategoryRepository;
 import com.github.fruitshop.repository.CustomerRepository;
 import com.github.fruitshop.repository.VendorRepository;

@@ -1,6 +1,7 @@
 package com.github.fruitshop.service;
 
-import com.github.fruitshop.domain.dto.CustomerDto;
+
+import com.github.fruitshop.model.CustomerDto;
 
 import java.util.List;
 

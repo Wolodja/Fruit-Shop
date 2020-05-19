@@ -1,7 +1,7 @@
 package com.github.fruitshop.controller.v1;
 
-import com.github.fruitshop.domain.dto.CustomerDto;
 import com.github.fruitshop.domain.exception.ResourceNotFoundException;
+import com.github.fruitshop.model.CustomerDto;
 import com.github.fruitshop.service.CustomerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,8 +51,14 @@ class CustomerControllerTest extends AbstractRestControllerTest{
 
     @Test
     private void testGetAllCustomers() throws Exception {
-        CustomerDto john = CustomerDto.builder().firstName("John").lastName("Smith").build();
-        CustomerDto longi = CustomerDto.builder().firstName("Longi").lastName("Ardo").build();
+        CustomerDto john = new CustomerDto();
+        john.setFirstName("John");
+        john.setLastName("Smith");
+
+        CustomerDto longi = new CustomerDto();
+        john.setFirstName("Longi");
+        john.setLastName("Ardo");
+
 
         List<CustomerDto> customers = Arrays.asList(john, longi);
 
@@ -91,7 +97,7 @@ class CustomerControllerTest extends AbstractRestControllerTest{
         returnDTO.setLastName(customer.getLastName());
         returnDTO.setCustomerUrl(CustomerController.BASE_URL + "/1");
 
-        when(customerService.createNewCustomer(customer)).thenReturn(returnDTO);
+        when(customerService.createNewCustomer(any(CustomerDto.class))).thenReturn(returnDTO);
 
         //when/then
         mockMvc.perform(post(CustomerController.BASE_URL)
@@ -100,7 +106,7 @@ class CustomerControllerTest extends AbstractRestControllerTest{
                 .content(asJsonString(customer)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.firstName", equalTo("Fred")))
-                .andExpect(jsonPath("$.customer_url", equalTo(CustomerController.BASE_URL + "/1")));
+                .andExpect(jsonPath("$.customerUrl", equalTo(CustomerController.BASE_URL + "/1")));
     }
 
     @Test
@@ -125,22 +131,22 @@ class CustomerControllerTest extends AbstractRestControllerTest{
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstName", equalTo("Fred")))
                 .andExpect(jsonPath("$.lastName", equalTo("Flintstone")))
-                .andExpect(jsonPath("$.customer_url", equalTo(CustomerController.BASE_URL + "/1")));
+                .andExpect(jsonPath("$.customerUrl", equalTo(CustomerController.BASE_URL + "/1")));
     }
 
     @Test
     public void testPatchCustomer() throws Exception {
 
         //given
-        CustomerDto customer = CustomerDto.builder().firstName("Fred").build();
+        CustomerDto customer = new CustomerDto();
+        customer.setFirstName("Fred");
 
-        CustomerDto returnDTO = CustomerDto.builder()
-                .firstName(customer.getFirstName())
-                .lastName("Flintstone")
-                .customerUrl(CustomerController.BASE_URL + "/1")
-                .build();
+        CustomerDto returnDto = new CustomerDto();
+        returnDto.setFirstName(customer.getFirstName());
+        returnDto.setLastName("Flintstone");
+        returnDto.setCustomerUrl(CustomerController.BASE_URL + "/1");
 
-        when(customerService.patchCustomer(anyLong(), any(CustomerDto.class))).thenReturn(returnDTO);
+        when(customerService.patchCustomer(anyLong(), any(CustomerDto.class))).thenReturn(returnDto);
 
         mockMvc.perform(patch(CustomerController.BASE_URL + "/1")
                 .accept(MediaType.APPLICATION_JSON)
@@ -149,7 +155,7 @@ class CustomerControllerTest extends AbstractRestControllerTest{
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstName", equalTo("Fred")))
                 .andExpect(jsonPath("$.lastName", equalTo("Flintstone")))
-                .andExpect(jsonPath("$.customer_url", equalTo(CustomerController.BASE_URL + "/1")));
+                .andExpect(jsonPath("$.customerUrl", equalTo(CustomerController.BASE_URL + "/1")));
     }
 
     @Test

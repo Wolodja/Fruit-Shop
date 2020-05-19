@@ -1,7 +1,7 @@
 package com.github.fruitshop.controller.v1;
 
-import com.github.fruitshop.domain.dto.CustomerDto;
-import com.github.fruitshop.domain.dto.CustomerListDto;
+import com.github.fruitshop.model.CustomerDto;
+import com.github.fruitshop.model.CustomerListDto;
 import com.github.fruitshop.service.CustomerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,7 +34,9 @@ public class CustomerController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public CustomerListDto getAllCustomers() {
-        return new CustomerListDto(customerService.getAllCustomers());
+        CustomerListDto customerListDto = new CustomerListDto();
+        customerListDto.getCustomers().addAll(customerService.getAllCustomers());
+        return customerListDto;
     }
 
     @GetMapping("/{id}")
@@ -46,6 +48,7 @@ public class CustomerController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CustomerDto createNewCustomer(@RequestBody CustomerDto customerDto) {
+        System.out.print(customerDto.toString());
         return customerService.createNewCustomer(customerDto);
     }
 
